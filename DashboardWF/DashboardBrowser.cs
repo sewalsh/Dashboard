@@ -12,13 +12,14 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
 
 namespace DashboardWF
 {
     public partial class DashboardBrowser : Form
     {
         public ChromiumWebBrowser browser;
-        public readonly string dashboardUrlList = @"https://seamus.party/dashboard/urls.json";
+        public readonly string dashboardUrlList = @"https://seamus.party/dashboard/urls-to-load.json";
 
         public DashboardBrowser()
         {
@@ -30,14 +31,27 @@ namespace DashboardWF
 
         private void InitializeBrowser()
         {
-            browser = new ChromiumWebBrowser("")
+
+            CefSettings settings = new CefSettings();
+
+            if (!Directory.Exists(Path.GetDirectoryName(@"c:\temp\cookies")))
+            {
+                Directory.CreateDirectory(@"c:\temp\cookies");
+            }
+
+            settings.CachePath = @"c:\temp\cookies";
+            settings.PersistSessionCookies = true;
+            
+            CefSharp.Cef.Initialize(settings);
+
+            browser = new ChromiumWebBrowser(string.Empty)
             {
                 Dock = DockStyle.Fill,
             };
 
-            this.Controls.Add(browser); 
+            this.Controls.Add(browser);
         }
-        
+
         public void LoadUrl(string url)
         {
             if (Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
@@ -51,7 +65,7 @@ namespace DashboardWF
             int index = 0;
 
             bool neverStop = true;
-            
+
             while (neverStop)
             {
                 var urls = JsonConvert.DeserializeObject<List<DashboardUrls>>(new WebClient().DownloadString(dashboardUrlList));
@@ -79,7 +93,7 @@ namespace DashboardWF
             public string url { get; set; }
             public string description { get; set; }
             public int duration { get; set; }
-            
+
         }
     }
 }
