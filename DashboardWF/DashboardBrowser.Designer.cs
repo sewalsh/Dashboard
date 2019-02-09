@@ -28,15 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.MouseTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // MouseTimer
+            // 
+            this.MouseTimer.Enabled = true;
+            this.MouseTimer.Tick += new System.EventHandler(this.MouseTimer_Tick);
             // 
             // DashboardBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(858, 558);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -44,14 +49,14 @@
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Dashboard Browser";
-            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.DashboardBrowser_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer MouseTimer;
     }
 }
 
