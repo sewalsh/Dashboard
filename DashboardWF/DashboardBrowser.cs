@@ -84,7 +84,7 @@ namespace DashboardWF
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Unable to read the JSON list of URLs.\n\nIs the location still correct?\nIs the JSON valid?", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    //MessageBox.Show("Unable to read the JSON list of URLs.\n\nIs the location still correct?\nIs the JSON valid?", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 }
 
                 try
